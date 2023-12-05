@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      // Let's say we have a long list of unsorted numbers (potentially millions),
+      // and we want to find the M largest numbers contained in it.
+      // Implement a function find_largest(input, m) that will find and return the
+      // largest m values given an input array or file.
+
+      const findLargest = (array, m) => {
+        if (m === 0) {
+          return [];
+        }
+        if (m > array.length) {
+          return "not enough numbers in list to be of size m"; // could also just return the whole list?
+        }
+
+        // a simple version of this problem is finding the 1 largest number
+        // let's implement that first
+        let max = array[0];
+
+        for (let i = 1; i < array.length; i++) {
+          if (array[i] > max) {
+            max = array[i];
+          }
+        }
+
+        return max;
+        /*
+        // create sorted array of size m, smallest at lowest index
+        // Big O Space: O(m)
+        const maxArray = new Array(array.slice(0, m));
+
+        // Big O Time: O(m)
+        maxArray.sort();
+
+        // keep index of smallest number, will be booted from list if current is larger
+        // Big O Time: O(n-m) array.length - m
+        for (let i = m; i < array.length; i++) {
+          // if the maxArray isn't full yet, add it to the list in a sorted manner
+          for(let j=0; j<m.length; j++) {
+            
+            if(array[i] > maxArray[j]) {
+              continue;
+            }
+            else {
+              break;
+            }
+          }
+        }
+        */
+      };
+
+      const largest = findLargest([1, 5, 4, 2, 3], 1); //  # => [3, 4, 5]
+      console.log(largest);
+    </script>
+  </body>
+</html>

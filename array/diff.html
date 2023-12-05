@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      // diff(a, b) # => [1, 2, 5, 6]
+      // Write a function diff(arrA, arrB) that accepts two arrays and
+      // returns a new array that contains all values that are not contained
+      // in both input arrays. The order of numbers in the result array does not matter.
+
+      const a = [1, 2, 3, 4];
+      const b = [3, 4, 5, 6];
+
+      // this brute force method is O(n^2) since it needs to loop through both arrays to complete
+      const bruteForceDiff = (arr1, arr2) => {
+        const result = [];
+        // o(n) to loop thru arr1
+        for (let i = 0; i < arr1.length; i++) {
+          // o(n) to loop through arr 2, o(2n^2)
+          if (arr2.includes(arr1[i]) === false) {
+            result.push(arr1[i]);
+          }
+        }
+
+        for (let j = 0; j < arr2.length; j++) {
+          if (arr1.includes(arr2[j]) === false) {
+            result.push(arr2[j]);
+          }
+        }
+        console.log("brute force result: ", result);
+      };
+
+      // use hash tables, with O(1) lookup, our search is made more efficient
+      const diff = (arr1, arr2) => {
+        const m1 = new Map(arr1.map((key) => [key, true]));
+        const m2 = new Map(arr2.map((key) => [key, true]));
+        const mResult = [];
+
+        // o(n) to loop thru m1
+        m1.forEach((value, key, map) => {
+          // o(1) on a map
+          if (m2.get(key) === undefined) {
+            mResult.push(key);
+          }
+        });
+
+        m2.forEach((value, key, map) => {
+          if (m1.get(key) === undefined) {
+            mResult.push(key);
+          }
+        });
+
+        console.log("smart diff: ", mResult);
+      };
+
+      // some languages have support for set arithmetic,
+      // javascript does not :(
+      const exor = (arr1, arr2) => {
+        const setA = new Set(arr1);
+        const setB = new Set(arr2);
+
+        // console.log("unique set: ", setA ^ setB);
+      };
+
+      bruteForceDiff(a, b);
+      diff(a, b);
+      // exor(a, b);
+    </script>
+  </body>
+</html>
